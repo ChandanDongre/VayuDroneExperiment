@@ -21,11 +21,12 @@
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-medium mb-2">Farm Location</label>
             <div class="flex">
-                <input type="text" class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter farm location">
-                <button class="bg-green-600 text-white px-4 rounded-r-lg">
+                <input type="text" id="farm-location" class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter farm location">
+                <button onclick="getUserLocation()" class="bg-green-600 text-white px-4 rounded-r-lg">
                     <i class="fas fa-map-marker-alt"></i>
                 </button>
             </div>
+            <select id="nearby-places" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></select>
         </div>
 
         <div class="mb-4">

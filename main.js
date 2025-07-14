@@ -34,6 +34,55 @@ function navigateTo(pageId) {
     }, 300);
 }
 
+function getNearbyPlaces(lat, lon) {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=1500&type=farm&key=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const places = data.results;
+            const nearbyPlacesSelect = document.getElementById('nearby-places');
+            nearbyPlacesSelect.innerHTML = '';
+            places.forEach(place => {
+                const option = document.createElement('option');
+                option.value = place.name;
+                option.textContent = place.name;
+                nearbyPlacesSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching nearby places:', error);
+        });
+}
+
+function getAddressFromLocation(lat, lon) {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const address = data.results[0].formatted;
+            document.getElementById('farm-location').value = address;
+        })
+        .catch(error => {
+            console.error('Error fetching address data:', error);
+        });
+}
+
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            getAddressFromLocation(lat, lon);
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
 function getWeather(lat, lon) {
     const apiKey = 'bd5e378503939ddaee76f12ad7a97608';
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
