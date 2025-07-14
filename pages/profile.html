@@ -1,0 +1,89 @@
+<div id="profile" class="page">
+    <div class="h-full flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center mb-6">
+                <button onclick="navigateTo('home')" class="text-green-600 mr-4">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-green-800">Profile</h1>
+            </div>
+
+            <div class="flex items-center mb-6">
+                <div class="bg-gray-200 w-16 h-16 rounded-full flex items-center justify-center mr-4">
+                    <i class="fas fa-user text-gray-500 text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-gray-800">Ethan Carter</h2>
+                    <p class="text-gray-600">Farmer</p>
+                    <p class="text-sm text-gray-500">Joined 2021</p>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="navigateTo('edit-profile')" class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-user-edit text-green-600 mr-3"></i>
+                        <span class="font-medium">Edit Profile</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+
+                <button onclick="navigateTo('change-language')" class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-language text-green-600 mr-3"></i>
+                        <span class="font-medium">Change Language</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+
+                <button onclick="navigateTo('help')" class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-question-circle text-green-600 mr-3"></i>
+                        <span class="font-medium">Help & Support</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+
+                <button onclick="navigateTo('account-settings')" class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-cog text-green-600 mr-3"></i>
+                        <span class="font-medium">Account Settings</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+                <div class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300">
+                    <div class="flex items-center">
+                        <i class="fas fa-moon text-green-600 mr-3"></i>
+                        <span class="font-medium">Dark Mode</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" id="dark-mode-toggle">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav mt-auto bg-white border-t border-gray-200 p-3">
+            <div class="flex justify-around">
+                <button onclick="navigateTo('home')" class="text-gray-500 flex flex-col items-center">
+                    <i class="fas fa-home text-xl"></i>
+                    <span class="text-xs mt-1">Home</span>
+                </button>
+                <button onclick="navigateTo('my-bookings')" class="text-gray-500 flex flex-col items-center">
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                    <span class="text-xs mt-1">Bookings</span>
+                </button>
+                <button onclick="navigateTo('profile')" class="text-green-600 flex flex-col items-center">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="text-xs mt-1">Profile</span>
+                </button>
+                <button onclick="navigateTo('help')" class="text-gray-500 flex flex-col items-center">
+                    <i class="fas fa-question-circle text-xl"></i>
+                    <span class="text-xs mt-1">Help</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

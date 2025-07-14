@@ -1,0 +1,90 @@
+<div id="book-service" class="page">
+    <div class="p-6">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('home')" class="text-green-600 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-green-800">Book Drone Service</h1>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Type of Service</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Service</option>
+                <option value="spraying">Spraying Service</option>
+                <option value="monitoring">Crop Monitoring</option>
+                <option value="mapping">Field Mapping</option>
+                <option value="seeding">Precision Seeding</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Farm Location</label>
+            <div class="flex">
+                <input type="text" id="farm-location" class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter farm location">
+                <button onclick="getUserLocation()" class="bg-green-600 text-white px-4 rounded-r-lg">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </div>
+            <select id="nearby-places" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Address</label>
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter full address">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="block text-gray-700 text-sm font-medium mb-2">City</label>
+                <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter city">
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-medium mb-2">State</label>
+                <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter state">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Zip Code</label>
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter zip code">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Preferred Date</label>
+            <div class="flex">
+                <input type="date" class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button class="bg-green-600 text-white px-4 rounded-r-lg">
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Time of Day (Optional)</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Time</option>
+                <option value="morning">Morning (6AM-10AM)</option>
+                <option value="midday">Midday (10AM-2PM)</option>
+                <option value="afternoon">Afternoon (2PM-6PM)</option>
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Crop Type (Optional)</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Crop</option>
+                <option value="wheat">Wheat</option>
+                <option value="rice">Rice</option>
+                <option value="corn">Corn</option>
+                <option value="cotton">Cotton</option>
+                <option value="sugarcane">Sugarcane</option>
+                        <option value="other">Other</option>
+            </select>
+        </div>
+
+        <button onclick="navigateTo('select-services')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300">
+            Continue
+        </button>
+    </div>
+</div>

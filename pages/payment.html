@@ -1,0 +1,89 @@
+<div id="payment" class="page">
+    <div class="p-6">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('booking-summary')" class="text-green-600 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-green-800">Complete Your Payment</h1>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm mb-6">
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Booking ID</span>
+                <span class="font-medium">#VAYU12345</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Drone Spraying Services</span>
+                <span class="font-medium">100 acres</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Date</span>
+                <span class="font-medium">20 July 2024</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Time</span>
+                <span class="font-medium">10:00 AM</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Location</span>
+                <span class="font-medium">Tikariya Village</span>
+            </div>
+            <div class="flex justify-between pt-2 border-t border-gray-200 mt-2">
+                <span class="text-gray-600 font-medium">Total</span>
+                <span class="font-bold text-green-600">₹350</span>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Select Payment Method</h3>
+            <div class="space-y-3">
+                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="h-4 w-4 text-green-600 focus:ring-green-500" checked>
+                    <div class="ml-3">
+                        <span class="block font-medium">UPI</span>
+                        <span class="block text-xs text-gray-500">Pay instantly using any UPI app</span>
+                    </div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" class="w-8 h-8 ml-auto" alt="UPI">
+                </label>
+
+                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="h-4 w-4 text-green-600 focus:ring-green-500">
+                    <div class="ml-3">
+                        <span class="block font-medium">Debit Card</span>
+                        <span class="block text-xs text-gray-500">Visa, Mastercard, Rupay</span>
+                    </div>
+                    <div class="flex ml-auto">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" class="w-8 h-8 mr-1" alt="Visa">
+                        <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" class="w-8 h-8" alt="Mastercard">
+                    </div>
+                </label>
+
+                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="h-4 w-4 text-green-600 focus:ring-green-500">
+                    <div class="ml-3">
+                        <span class="block font-medium">Net Banking</span>
+                        <span class="block text-xs text-gray-500">All major Indian banks</span>
+                    </div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889676.png" class="w-8 h-8 ml-auto" alt="Net Banking">
+                </label>
+
+                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="h-4 w-4 text-green-600 focus:ring-green-500">
+                    <div class="ml-3">
+                        <span class="block font-medium">Cash on Service</span>
+                        <span class="block text-xs text-gray-500">Pay when drone service is completed</span>
+                    </div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889642.png" class="w-8 h-8 ml-auto" alt="Cash">
+                </label>
+            </div>
+        </div>
+
+        <div class="text-xs text-gray-500 mb-4 text-center">
+            <i class="fas fa-lock"></i> Secure payment information
+        </div>
+
+        <button onclick="navigateTo('booking-confirmation')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300">
+            Pay ₹350 Now
+        </button>
+    </div>
+</div>

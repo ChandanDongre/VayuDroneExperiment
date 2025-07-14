@@ -1,0 +1,42 @@
+<div id="login" class="page flex flex-col items-center justify-center">
+    <div class="card w-full max-w-sm">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('welcome')" class="text-gray-500 hover:text-gray-700 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Login</h1>
+        </div>
+
+        <div class="mb-4">
+            <label for="mobile">Mobile Number</label>
+            <div class="flex">
+                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                    +91
+                </span>
+                <input type="tel" id="mobile" placeholder="Enter mobile number">
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="otp">Enter OTP</label>
+            <div class="flex">
+                <input type="text" id="otp" placeholder="6-digit OTP" disabled>
+                <button id="send-otp" class="btn btn-secondary">
+                    Send OTP
+                </button>
+            </div>
+        </div>
+
+        <button id="login-btn" class="btn btn-primary w-full" disabled>
+            Login
+        </button>
+
+        <div class="text-center mt-4">
+            <a href="#" onclick="navigateTo('register')" class="text-sm text-gray-600 hover:text-gray-800">New user? Sign Up Here</a>
+        </div>
+
+        <div class="text-center mt-2">
+            <a href="#" onclick="navigateTo('help')" class="text-sm text-gray-500 hover:text-gray-700">Need Help? FAQ/Support</a>
+        </div>
+    </div>
+</div>

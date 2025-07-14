@@ -4,58 +4,176 @@ let loadingProgress = 0;
 let loadingInterval;
 
 document.addEventListener('DOMContentLoaded', function () {
-    showPage('loading');
-
-    loadingInterval = setInterval(function () {
-        loadingProgress += 20;
-        if (loadingProgress >= 100) {
-            loadingProgress = 100;
-            clearInterval(loadingInterval);
-            setTimeout(function () {
-                showPage('welcome');
-            }, 100);
-        }
-        document.getElementById('loading-bar').style.width = loadingProgress + '%';
-    }, 400);
-
-    setupEventListeners();
+    navigateTo('welcome');
 });
 
 function navigateTo(pageId) {
-    showPage(pageId);
+    const mainContainer = document.querySelector('.max-w-md');
+    const currentPageElement = mainContainer.firstChild;
 
-    // Delay to allow new DOM to render
-    if (['login', 'register'].includes(pageId)) {
-        setTimeout(setupEventListeners, 100);
+    if (currentPageElement) {
+        currentPageElement.classList.add('fade-out');
+    }
+
+    setTimeout(() => {
+        const pageUrl = `pages/${pageId}.html`;
+        fetch(pageUrl)
+            .then(response => response.text())
+            .then(html => {
+                mainContainer.innerHTML = html;
+                currentPage = pageId;
+                setupEventListeners();
+
+                if (pageId === 'home') {
+                    getWeather(26.9124, 75.7873); // Jaipur, India
+                }
+            })
+            .catch(error => {
+                console.error('Error loading page:', error);
+            });
+    }, 300);
+}
+
+function getNearbyPlaces(lat, lon) {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=1500&type=farm&key=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const places = data.results;
+            const nearbyPlacesSelect = document.getElementById('nearby-places');
+            nearbyPlacesSelect.innerHTML = '';
+            places.forEach(place => {
+                const option = document.createElement('option');
+                option.value = place.name;
+                option.textContent = place.name;
+                nearbyPlacesSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching nearby places:', error);
+        });
+}
+
+function getAddressFromLocation(lat, lon) {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const address = data.results[0].formatted;
+            document.getElementById('farm-location').value = address;
+        })
+        .catch(error => {
+            console.error('Error fetching address data:', error);
+        });
+}
+
+function getLocationByIP() {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const lat = data.latitude;
+            const lon = data.longitude;
+            getAddressFromLocation(lat, lon);
+        })
+        .catch(error => {
+            console.error('Error fetching location by IP:', error);
+        });
+}
+
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            getAddressFromLocation(lat, lon);
+        });
+    } else {
+        getLocationByIP();
     }
 }
 
-function showPage(pageId) {
-    const currentPageEl = document.getElementById(currentPage);
-    if (currentPageEl) {
-        currentPageEl.classList.remove('active-page', 'fade-in');
-    }
+function getWeather(lat, lon) {
+    const apiKey = 'bd5e378503939ddaee76f12ad7a97608';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-    const newPageEl = document.getElementById(pageId);
-    if (newPageEl) {
-        newPageEl.classList.add('active-page');
-        setTimeout(() => {
-            newPageEl.classList.add('fade-in');
-        }, 10);
-        currentPage = pageId;
-    }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const weatherDiv = document.querySelector('.bg-gradient-to-r');
+            if (weatherDiv) {
+                const temp = Math.round(data.main.temp);
+                const description = data.weather[0].description;
+                const humidity = data.main.humidity;
+                const wind = data.wind.speed;
 
-    if (pageId === 'welcome') {
-        const loadingScreen = document.getElementById('loading');
-        if (loadingScreen) {
-            loadingScreen.classList.add('hidden');
-        }
-    }
+                weatherDiv.querySelector('.text-3xl').textContent = `${temp}°C`;
+                weatherDiv.querySelector('.text-sm').textContent = description;
+                weatherDiv.querySelector('.text-right p:nth-child(1)').textContent = `Humidity: ${humidity}%`;
+                weatherDiv.querySelector('.text-right p:nth-child(2)').textContent = `Wind: ${wind} km/h`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
+}
 
-    window.scrollTo(0, 0);
+async function translatePage(targetLanguage) {
+    const allTextElements = document.querySelectorAll('h1, h2, p, span, label, button, a');
+    const textsToTranslate = Array.from(allTextElements).map(el => el.innerText);
+
+    const res = await fetch("https://libretranslate.com/translate", {
+        method: "POST",
+        body: JSON.stringify({
+            q: textsToTranslate,
+            source: "auto",
+            target: targetLanguage,
+            format: "text",
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    const { translatedText } = await res.json();
+
+    allTextElements.forEach((el, index) => {
+        el.innerText = translatedText[index];
+    });
 }
 
 function setupEventListeners() {
+    // Dark mode toggle logic
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    }
+
+    // Language selection logic
+    const saveLanguageButton = document.getElementById('save-language');
+    if (saveLanguageButton) {
+        saveLanguageButton.addEventListener('click', function() {
+            const selectedLanguage = document.getElementById('language-select').value;
+            translatePage(selectedLanguage);
+            navigateTo('profile');
+        });
+    }
+
+    // Notification screen logic
+    const markAsReadButtons = document.querySelectorAll('.text-sm.text-blue-500');
+    markAsReadButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationCard = this.closest('.card');
+            notificationCard.remove();
+        });
+    });
+
     // Login screen logic
     const mobileInput = document.getElementById('mobile');
     const otpInput = document.getElementById('otp');
@@ -86,7 +204,7 @@ function setupEventListeners() {
 
     if (loginBtn) {
         loginBtn.addEventListener('click', function () {
-            showPage('home');
+            navigateTo('home');
         });
     }
 
@@ -120,7 +238,7 @@ function setupEventListeners() {
 
     if (createBtn) {
         createBtn.addEventListener('click', function () {
-            showPage('home');
+            navigateTo('home');
         });
     }
 
@@ -140,7 +258,7 @@ function setupEventListeners() {
     }
 
     window.completeRegistration = function () {
-        showPage('home');
+        navigateTo('home');
     };
 
     // Service quantity controls
