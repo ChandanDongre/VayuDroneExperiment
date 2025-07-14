@@ -71,6 +71,22 @@ function getAddressFromLocation(lat, lon) {
         });
 }
 
+function getLocationByIP() {
+    const apiKey = '7292b0c9fdbf49fd8a3591a1359a2aaf';
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const lat = data.latitude;
+            const lon = data.longitude;
+            getAddressFromLocation(lat, lon);
+        })
+        .catch(error => {
+            console.error('Error fetching location by IP:', error);
+        });
+}
+
 function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -79,7 +95,7 @@ function getUserLocation() {
             getAddressFromLocation(lat, lon);
         });
     } else {
-        alert("Geolocation is not supported by this browser.");
+        getLocationByIP();
     }
 }
 
