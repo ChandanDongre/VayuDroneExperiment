@@ -8,22 +8,30 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function navigateTo(pageId) {
-    const pageUrl = `pages/${pageId}.html`;
-    fetch(pageUrl)
-        .then(response => response.text())
-        .then(html => {
-            const mainContainer = document.querySelector('.max-w-md');
-            mainContainer.innerHTML = html;
-            currentPage = pageId;
-            setupEventListeners();
+    const mainContainer = document.querySelector('.max-w-md');
+    const currentPageElement = mainContainer.firstChild;
 
-            if (pageId === 'home') {
-                getWeather(26.9124, 75.7873); // Jaipur, India
-            }
-        })
-        .catch(error => {
-            console.error('Error loading page:', error);
-        });
+    if (currentPageElement) {
+        currentPageElement.classList.add('fade-out');
+    }
+
+    setTimeout(() => {
+        const pageUrl = `pages/${pageId}.html`;
+        fetch(pageUrl)
+            .then(response => response.text())
+            .then(html => {
+                mainContainer.innerHTML = html;
+                currentPage = pageId;
+                setupEventListeners();
+
+                if (pageId === 'home') {
+                    getWeather(26.9124, 75.7873); // Jaipur, India
+                }
+            })
+            .catch(error => {
+                console.error('Error loading page:', error);
+            });
+    }, 300);
 }
 
 function getWeather(lat, lon) {
