@@ -16,13 +16,83 @@ function navigateTo(pageId) {
             mainContainer.innerHTML = html;
             currentPage = pageId;
             setupEventListeners();
+
+            if (pageId === 'home') {
+                getWeather(26.9124, 75.7873); // Jaipur, India
+            }
         })
         .catch(error => {
             console.error('Error loading page:', error);
         });
 }
 
+function getWeather(lat, lon) {
+    const apiKey = 'bd5e378503939ddaee76f12ad7a97608';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const weatherDiv = document.querySelector('.bg-gradient-to-r');
+            if (weatherDiv) {
+                const temp = Math.round(data.main.temp);
+                const description = data.weather[0].description;
+                const humidity = data.main.humidity;
+                const wind = data.wind.speed;
+
+                weatherDiv.querySelector('.text-3xl').textContent = `${temp}°C`;
+                weatherDiv.querySelector('.text-sm').textContent = description;
+                weatherDiv.querySelector('.text-right p:nth-child(1)').textContent = `Humidity: ${humidity}%`;
+                weatherDiv.querySelector('.text-right p:nth-child(2)').textContent = `Wind: ${wind} km/h`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
+}
+
+async function translatePage(targetLanguage) {
+    const allTextElements = document.querySelectorAll('h1, h2, p, span, label, button, a');
+    const textsToTranslate = Array.from(allTextElements).map(el => el.innerText);
+
+    const res = await fetch("https://libretranslate.com/translate", {
+        method: "POST",
+        body: JSON.stringify({
+            q: textsToTranslate,
+            source: "auto",
+            target: targetLanguage,
+            format: "text",
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    const { translatedText } = await res.json();
+
+    allTextElements.forEach((el, index) => {
+        el.innerText = translatedText[index];
+    });
+}
+
 function setupEventListeners() {
+    // Language selection logic
+    const saveLanguageButton = document.getElementById('save-language');
+    if (saveLanguageButton) {
+        saveLanguageButton.addEventListener('click', function() {
+            const selectedLanguage = document.getElementById('language-select').value;
+            translatePage(selectedLanguage);
+            navigateTo('profile');
+        });
+    }
+
+    // Notification screen logic
+    const markAsReadButtons = document.querySelectorAll('.text-sm.text-blue-500');
+    markAsReadButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationCard = this.closest('.card');
+            notificationCard.remove();
+        });
+    });
+
     // Login screen logic
     const mobileInput = document.getElementById('mobile');
     const otpInput = document.getElementById('otp');
