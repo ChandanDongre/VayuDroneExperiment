@@ -1371,38 +1371,47 @@
         
         // Set up all event listeners
         function setupEventListeners() {
-            // OTP send button functionality
-            const sendOtpBtn = document.getElementById('send-otp');
-            if (sendOtpBtn) {
-                sendOtpBtn.addEventListener('click', function() {
-                    const mobileInput = document.getElementById('mobile');
-                    const otpInput = document.getElementById('otp');
-                    
-                    if (mobileInput.value.length === 10) {
-                        // Simulate OTP sent
-                        sendOtpBtn.textContent = 'Resend OTP';
-                        sendOtpBtn.disabled = true;
-                        otpInput.disabled = false;
-                        
-                        // Enable after 30 seconds
-                        setTimeout(() => {
-                            sendOtpBtn.disabled = false;
-                        }, 30000);
-                    } else {
-                        alert('Please enter a valid 10-digit mobile number');
-                    }
-                });
-            }
+    const sendOtpBtn = document.getElementById('send-otp');
+    if (sendOtpBtn) {
+        sendOtpBtn.addEventListener('click', function() {
+            const mobileInput = document.getElementById('mobile');
+            const otpInput = document.getElementById('otp');
             
-            // Login button functionality
-            const loginBtn = document.getElementById('login-btn');
-            if (loginBtn) {
-                loginBtn.addEventListener('click', function() {
-                    // Simulate login
-                    showPage('home');
-                });
+            if (mobileInput.value.length === 10) {
+                sendOtpBtn.textContent = 'Resend OTP';
+                sendOtpBtn.disabled = true;
+                otpInput.disabled = false;
+
+                // Enable resend after 30 seconds
+                setTimeout(() => {
+                    sendOtpBtn.disabled = false;
+                }, 30000);
+            } else {
+                alert('Please enter a valid 10-digit mobile number');
             }
-            
+        });
+    }
+
+    const loginBtn = document.getElementById('login-btn');
+    const otpInput = document.getElementById('otp');
+
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            showPage('home');
+        });
+    }
+
+    // ✅ Added: Enable login button on valid OTP input
+    if (otpInput && loginBtn) {
+        otpInput.addEventListener('input', function () {
+            if (otpInput.value.length === 6) {
+                loginBtn.disabled = false;
+            } else {
+                loginBtn.disabled = true;
+            }
+        });
+    }
+        }
             // Terms agreement checkbox
             const agreeTerms = document.getElementById('agree-terms');
             if (agreeTerms) {
