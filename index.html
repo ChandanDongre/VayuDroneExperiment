@@ -1440,80 +1440,376 @@
                 const quantitySpan = card.querySelector('.mx-3');
                 const priceSpan = card.querySelector('.font-medium:last-child');
                 
-                let quantity = 0;
-                const pricePerUnit = parseInt(priceSpan.textContent.replace(/[^0-9]/g, '')) / (quantity || 1);
-                
-                minusBtn.addEventListener('click', function() {
-                    if (quantity > 0) {
-                        quantity--;
-                        quantitySpan.textContent = quantity;
-                        priceSpan.textContent = '₹' + (quantity * pricePerUnit);
-                        updateBookingSummary();
-                    }
-                });
-                
-                plusBtn.addEventListener('click', function() {
-                    quantity++;
+<script>
+    // Global variables
+    let currentPage = 'loading';
+    let loadingProgress = 0;
+    let loadingInterval;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showPage('loading');
+
+        loadingInterval = setInterval(function () {
+            loadingProgress += 20;
+            if (loadingProgress >= 100) {
+                loadingProgress = 100;
+                clearInterval(loadingInterval);
+                setTimeout(function () {
+                    showPage('welcome');
+                }, 100);
+            }
+            document.getElementById('loading-bar').style.width = loadingProgress + '%';
+        }, 400);
+
+        setupEventListeners();
+    });
+
+    function navigateTo(pageId) {
+        showPage(pageId);
+    }
+
+    function showPage(pageId) {
+        const currentPageEl = document.getElementById(currentPage);
+        if (currentPageEl) {
+            currentPageEl.classList.remove('active-page', 'fade-in');
+        }
+
+        const newPageEl = document.getElementById(pageId);
+        if (newPageEl) {
+            newPageEl.classList.add('active-page');
+            setTimeout(() => {
+                newPageEl.classList.add('fade-in');
+            }, 10);
+            currentPage = pageId;
+        }
+
+        // ✅ Hide loading screen when welcome is shown
+        if (pageId === 'welcome') {
+            const loadingScreen = document.getElementById('loading');
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+            }
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function setupEventListeners() {
+        const sendOtpBtn = document.getElementById('send-otp');
+        const otpInput = document.getElementById('otp');
+        const loginBtn = document.getElementById('login-btn');
+
+        if (sendOtpBtn) {
+            sendOtpBtn.addEventListener('click', function () {
+                const mobileInput = document.getElementById('mobile');
+
+                if (mobileInput.value.length === 10) {
+                    sendOtpBtn.textContent = 'Resend OTP';
+                    sendOtpBtn.disabled = true;
+                    otpInput.disabled = false;
+
+                    setTimeout(() => {
+                        sendOtpBtn.disabled = false;
+                    }, 30000);
+                } else {
+                    alert('Please enter a valid 10-digit mobile number');
+                }
+            });
+        }
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', function () {
+                showPage('home');
+            });
+        }
+
+        // ✅ Enable login button when OTP is 6 digits
+        if (otpInput && loginBtn) {
+            otpInput.addEventListener('input', function () {
+                loginBtn.disabled = otpInput.value.length !== 6;
+            });
+        }
+
+        const agreeTerms = document.getElementById('agree-terms');
+        if (agreeTerms) {
+            agreeTerms.addEventListener('change', function () {
+                document.getElementById('continue-privacy').disabled = !this.checked;
+            });
+        }
+
+        const agreePrivacy = document.getElementById('agree-privacy');
+        if (agreePrivacy) {
+            agreePrivacy.addEventListener('change', function () {
+                document.getElementById('accept-continue').disabled = !this.checked;
+            });
+        }
+
+        window.completeRegistration = function () {
+            showPage('home');
+        };
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            const minusBtn = card.querySelector('.fa-minus').parentElement;
+            const plusBtn = card.querySelector('.fa-plus').parentElement;
+            const quantitySpan = card.querySelector('.mx-3');
+            const priceSpan = card.querySelector('.font-medium:last-child');
+
+            let quantity = 0;
+            const pricePerUnit = parseInt(priceSpan.textContent.replace(/[^0-9]/g, '')) / (quantity || 1);
+
+            minusBtn.addEventListener('click', function () {
+                if (quantity > 0) {
+                    quantity--;
                     quantitySpan.textContent = quantity;
                     priceSpan.textContent = '₹' + (quantity * pricePerUnit);
                     updateBookingSummary();
-                });
+                }
             });
-        }
-        
-        // Update booking summary
-        function updateBookingSummary() {
-            let totalQuantity = 0;
-            let totalCost = 0;
-            
-            document.querySelectorAll('.service-card').forEach(card => {
-                const quantity = parseInt(card.querySelector('.mx-3').textContent);
-                const price = parseInt(card.querySelector('.font-medium:last-child').textContent.replace(/[^0-9]/g, ''));
-                
-                totalQuantity += quantity;
-                totalCost += price;
+
+            plusBtn.addEventListener('click', function () {
+                quantity++;
+                quantitySpan.textContent = quantity;
+                priceSpan.textContent = '₹' + (quantity * pricePerUnit);
+                updateBookingSummary();
             });
-            
-            const summaryEl = document.querySelector('.bg-gray-50');
-            if (summaryEl) {
-                summaryEl.querySelector('span:first-child').textContent = totalQuantity + ' acres';
-                summaryEl.querySelector('span:last-child').textContent = '₹' + totalCost;
-            }
-        }
-        
-        // Countdown timer for drone ETA
-        function startCountdown() {
-            let hours = 2;
-            let minutes = 35;
-            let seconds = 18;
-            
-            const countdownInterval = setInterval(function() {
-                seconds--;
-                if (seconds < 0) {
-                    seconds = 59;
-                    minutes--;
-                }
-                if (minutes < 0) {
-                    minutes = 59;
-                    hours--;
-                }
-                if (hours < 0) {
-                    clearInterval(countdownInterval);
-                    return;
-                }
-                
-                document.getElementById('eta-hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('eta-minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('eta-seconds').textContent = seconds.toString().padStart(2, '0');
-            }, 1000);
-        }
-        
-        // Start countdown when drone status page is shown
-        document.addEventListener('click', function(e) {
-            if (e.target && (e.target.matches('[onclick*="drone-status"]') || e.target.closest('[onclick*="drone-status"]'))) {
-                setTimeout(startCountdown, 1000);
-            }
         });
-    </script>
+    }
+
+    function updateBookingSummary() {
+        let totalQuantity = 0;
+        let totalCost = 0;
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            const quantity = parseInt(card.querySelector('.mx-3').textContent);
+            const price = parseInt(card.querySelector('.font-medium:last-child').textContent.replace(/[^0-9]/g, ''));
+
+            totalQuantity += quantity;
+            totalCost += price;
+        });
+
+        const summaryEl = document.querySelector('.bg-gray-50');
+        if (summaryEl) {
+            summaryEl.querySelector('span:first-child').textContent = totalQuantity + ' acres';
+            summaryEl.querySelector('span:last-child').textContent = '₹' + totalCost;
+        }
+    }
+
+    function startCountdown() {
+        let hours = 2;
+        let minutes = 35;
+        let seconds = 18;
+
+        const countdownInterval = setInterval(function () {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+            }
+            if (hours < 0) {
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            document.getElementById('eta-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('eta-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('eta-seconds').textContent = seconds.toString().padStart(2, '0');
+        }, 1000);
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.target && (e.target.matches('[onclick*="drone-status"]') || e.target.closest('[onclick*="drone-status"]'))) {
+            setTimeout(startCountdown, 1000);
+        }
+    });
+</script><script>
+    // Global variables
+    let currentPage = 'loading';
+    let loadingProgress = 0;
+    let loadingInterval;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showPage('loading');
+
+        loadingInterval = setInterval(function () {
+            loadingProgress += 20;
+            if (loadingProgress >= 100) {
+                loadingProgress = 100;
+                clearInterval(loadingInterval);
+                setTimeout(function () {
+                    showPage('welcome');
+                }, 100);
+            }
+            document.getElementById('loading-bar').style.width = loadingProgress + '%';
+        }, 400);
+
+        setupEventListeners();
+    });
+
+    function navigateTo(pageId) {
+        showPage(pageId);
+    }
+
+    function showPage(pageId) {
+        const currentPageEl = document.getElementById(currentPage);
+        if (currentPageEl) {
+            currentPageEl.classList.remove('active-page', 'fade-in');
+        }
+
+        const newPageEl = document.getElementById(pageId);
+        if (newPageEl) {
+            newPageEl.classList.add('active-page');
+            setTimeout(() => {
+                newPageEl.classList.add('fade-in');
+            }, 10);
+            currentPage = pageId;
+        }
+
+        // ✅ Hide loading screen when welcome is shown
+        if (pageId === 'welcome') {
+            const loadingScreen = document.getElementById('loading');
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+            }
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function setupEventListeners() {
+        const sendOtpBtn = document.getElementById('send-otp');
+        const otpInput = document.getElementById('otp');
+        const loginBtn = document.getElementById('login-btn');
+
+        if (sendOtpBtn) {
+            sendOtpBtn.addEventListener('click', function () {
+                const mobileInput = document.getElementById('mobile');
+
+                if (mobileInput.value.length === 10) {
+                    sendOtpBtn.textContent = 'Resend OTP';
+                    sendOtpBtn.disabled = true;
+                    otpInput.disabled = false;
+
+                    setTimeout(() => {
+                        sendOtpBtn.disabled = false;
+                    }, 30000);
+                } else {
+                    alert('Please enter a valid 10-digit mobile number');
+                }
+            });
+        }
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', function () {
+                showPage('home');
+            });
+        }
+
+        // ✅ Enable login button when OTP is 6 digits
+        if (otpInput && loginBtn) {
+            otpInput.addEventListener('input', function () {
+                loginBtn.disabled = otpInput.value.length !== 6;
+            });
+        }
+
+        const agreeTerms = document.getElementById('agree-terms');
+        if (agreeTerms) {
+            agreeTerms.addEventListener('change', function () {
+                document.getElementById('continue-privacy').disabled = !this.checked;
+            });
+        }
+
+        const agreePrivacy = document.getElementById('agree-privacy');
+        if (agreePrivacy) {
+            agreePrivacy.addEventListener('change', function () {
+                document.getElementById('accept-continue').disabled = !this.checked;
+            });
+        }
+
+        window.completeRegistration = function () {
+            showPage('home');
+        };
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            const minusBtn = card.querySelector('.fa-minus').parentElement;
+            const plusBtn = card.querySelector('.fa-plus').parentElement;
+            const quantitySpan = card.querySelector('.mx-3');
+            const priceSpan = card.querySelector('.font-medium:last-child');
+
+            let quantity = 0;
+            const pricePerUnit = parseInt(priceSpan.textContent.replace(/[^0-9]/g, '')) / (quantity || 1);
+
+            minusBtn.addEventListener('click', function () {
+                if (quantity > 0) {
+                    quantity--;
+                    quantitySpan.textContent = quantity;
+                    priceSpan.textContent = '₹' + (quantity * pricePerUnit);
+                    updateBookingSummary();
+                }
+            });
+
+            plusBtn.addEventListener('click', function () {
+                quantity++;
+                quantitySpan.textContent = quantity;
+                priceSpan.textContent = '₹' + (quantity * pricePerUnit);
+                updateBookingSummary();
+            });
+        });
+    }
+
+    function updateBookingSummary() {
+        let totalQuantity = 0;
+        let totalCost = 0;
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            const quantity = parseInt(card.querySelector('.mx-3').textContent);
+            const price = parseInt(card.querySelector('.font-medium:last-child').textContent.replace(/[^0-9]/g, ''));
+
+            totalQuantity += quantity;
+            totalCost += price;
+        });
+
+        const summaryEl = document.querySelector('.bg-gray-50');
+        if (summaryEl) {
+            summaryEl.querySelector('span:first-child').textContent = totalQuantity + ' acres';
+            summaryEl.querySelector('span:last-child').textContent = '₹' + totalCost;
+        }
+    }
+
+    function startCountdown() {
+        let hours = 2;
+        let minutes = 35;
+        let seconds = 18;
+
+        const countdownInterval = setInterval(function () {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+            }
+            if (hours < 0) {
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            document.getElementById('eta-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('eta-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('eta-seconds').textContent = seconds.toString().padStart(2, '0');
+        }, 1000);
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.target && (e.target.matches('[onclick*="drone-status"]') || e.target.closest('[onclick*="drone-status"]'))) {
+            setTimeout(startCountdown, 1000);
+        }
+    });
+</script>
 <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Chandan-hx/vayudrone-feedback" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
