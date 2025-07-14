@@ -1,47 +1,47 @@
-<div id="register" class="page">
-    <div class="p-6">
-        <div class="flex items-center mb-8">
-            <button onclick="navigateTo('login')" class="text-green-600 mr-4">
+<div id="register" class="page flex flex-col items-center justify-center">
+    <div class="card w-full max-w-sm">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('login')" class="text-gray-500 hover:text-gray-700 mr-4">
                 <i class="fas fa-arrow-left"></i>
             </button>
-            <h1 class="text-2xl font-bold text-green-800">Register a New Account</h1>
+            <h1>Register a New Account</h1>
         </div>
 
-        <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-medium mb-2" for="reg-mobile">Mobile Number</label>
+        <div class="mb-4">
+            <label for="reg-mobile">Mobile Number</label>
             <div class="flex">
-                <div class="flex items-center justify-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg">
-                    <span class="text-gray-600">+91</span>
-                </div>
-                <input type="tel" id="reg-mobile" class="flex-1 p-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter mobile number">
+                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                    +91
+                </span>
+                <input type="tel" id="reg-mobile" placeholder="Enter mobile number">
             </div>
         </div>
 
         <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-medium mb-2" for="reg-otp">Enter OTP</label>
+            <label for="reg-otp">Enter OTP</label>
             <div class="flex">
-                <input type="text" id="reg-otp" class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="6-digit OTP" disabled>
-                <button id="reg-send-otp" class="bg-green-600 hover:bg-green-700 text-white font-medium px-4 rounded-r-lg transition duration-300">
+                <input type="text" id="reg-otp" placeholder="6-digit OTP" disabled>
+                <button id="reg-send-otp" class="btn btn-secondary">
                     Send OTP
                 </button>
             </div>
         </div>
 
         <div class="mb-4 flex items-center">
-            <input type="checkbox" id="is-farmer" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-            <label for="is-farmer" class="ml-2 block text-sm text-gray-700">I am a Farmer</label>
+            <input type="checkbox" id="is-farmer" class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+            <label for="is-farmer" class="ml-2 block text-sm text-gray-900">I am a Farmer</label>
         </div>
 
-        <button id="create-account" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md mb-4 transition duration-300" disabled>
+        <button id="create-account" class="btn btn-primary w-full" disabled>
             Create Account
         </button>
 
-        <div class="text-center mb-6">
-            <a href="#" onclick="navigateTo('login')" class="text-green-600 hover:text-green-800 text-sm font-medium">Already have an account? Login Here</a>
+        <div class="text-center mt-4">
+            <a href="#" onclick="navigateTo('login')" class="text-sm text-gray-600 hover:text-gray-800">Already have an account? Login Here</a>
         </div>
 
-        <div class="text-center">
-            <a href="#" onclick="navigateTo('help')" class="text-gray-500 hover:text-gray-700 text-sm">Need Help? FAQ/Support</a>
+        <div class="text-center mt-2">
+            <a href="#" onclick="navigateTo('help')" class="text-sm text-gray-500 hover:text-gray-700">Need Help? FAQ/Support</a>
         </div>
     </div>
 </div>
