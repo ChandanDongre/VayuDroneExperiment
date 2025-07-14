@@ -1359,7 +1359,12 @@
                 }, 10);
                 currentPage = pageId;
             }
-            
+            if (pageId === 'welcome') {
+  const loadingScreen = document.getElementById('loading');
+  if (loadingScreen) {
+    loadingScreen.classList.add('hidden'); // 👈 hides loading screen completely
+  }
+        }
             // Scroll to top when changing pages
             window.scrollTo(0, 0);
         }
