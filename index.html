@@ -1368,7 +1368,11 @@
             // Scroll to top when changing pages
             window.scrollTo(0, 0);
         }
-        
+
+        // Add this at the bottom of showPage()
+if (['login', 'register'].includes(pageId)) {
+    setTimeout(setupEventListeners, 50);  // DOM must render before attaching
+        }
         // Set up all event listeners
         function setupEventListeners() {
     const sendOtpBtn = document.getElementById('send-otp');
