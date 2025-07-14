@@ -1,0 +1,64 @@
+<div id="drone-status" class="page">
+    <div class="p-6">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('home')" class="text-green-600 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-green-800">Drone Status</h1>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm mb-6">
+            <h2 class="font-semibold text-gray-800 mb-4">Current/Pending Booking</h2>
+
+            <div class="space-y-4">
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Booking ID</span>
+                    <span class="font-medium">#DRN45678</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Location</span>
+                    <span class="font-medium">Farm B, Village Y</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Operator</span>
+                    <span class="font-medium">Rajesh Kumar</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Drone ID</span>
+                    <span class="font-medium">DJI-AGR-0042</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 shadow-sm mb-6 text-center">
+            <h3 class="font-medium text-blue-800 mb-3">Estimated Time of Arrival</h3>
+            <div class="flex justify-center space-x-4">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-800" id="eta-hours">02</div>
+                    <div class="text-xs text-blue-600">Hours</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-800" id="eta-minutes">35</div>
+                    <div class="text-xs text-blue-600">Minutes</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-800" id="eta-seconds">18</div>
+                    <div class="text-xs text-blue-600">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition duration-300">
+                Contact Operator
+            </button>
+            <button class="bg-red-100 hover:bg-red-200 text-red-800 font-medium py-2 px-4 rounded-lg shadow-md transition duration-300">
+                Cancel Booking
+            </button>
+        </div>
+
+        <div class="text-xs text-gray-500 text-center">
+            Note: Actual timing may vary due to weather conditions and drone availability
+        </div>
+    </div>
+</div>

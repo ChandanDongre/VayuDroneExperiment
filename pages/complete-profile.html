@@ -1,0 +1,98 @@
+<div id="complete-profile" class="page">
+    <div class="p-6">
+        <div class="flex items-center mb-6">
+            <button onclick="navigateTo('register')" class="text-green-600 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-2xl font-bold text-green-800">Complete Your Profile</h1>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2" for="full-name">Full Name</label>
+            <input type="text" id="full-name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter your full name">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Gender</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2" for="age">Age</label>
+            <input type="number" id="age" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter your age">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Type of Farmer</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Farmer Type</option>
+                <option value="small">Smallholder Farmer</option>
+                <option value="medium">Medium-scale Farmer</option>
+                <option value="large">Large-scale Farmer</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Farm Size</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="">Select Farm Size</option>
+                <option value="1-5">1-5 acres</option>
+                <option value="5-10">5-10 acres</option>
+                <option value="10-20">10-20 acres</option>
+                <option value="20+">20+ acres</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">District/Village</label>
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter your district and village">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Full Address</label>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="House No.">
+                </div>
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Street">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Area">
+                </div>
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Landmark">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="District">
+                </div>
+                <div>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Village">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-medium mb-2">Crops You Grow (optional)</label>
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="List your crops">
+        </div>
+
+        <div class="mb-6 flex items-center">
+            <input type="checkbox" id="whatsapp-updates" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded" checked>
+            <label for="whatsapp-updates" class="ml-2 block text-sm text-gray-700">Send me drone tips and offers on WhatsApp</label>
+        </div>
+
+        <button onclick="navigateTo('terms')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300">
+            Save and Continue
+        </button>
+    </div>
+</div>

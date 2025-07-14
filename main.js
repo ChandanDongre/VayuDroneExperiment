@@ -4,55 +4,22 @@ let loadingProgress = 0;
 let loadingInterval;
 
 document.addEventListener('DOMContentLoaded', function () {
-    showPage('loading');
-
-    loadingInterval = setInterval(function () {
-        loadingProgress += 20;
-        if (loadingProgress >= 100) {
-            loadingProgress = 100;
-            clearInterval(loadingInterval);
-            setTimeout(function () {
-                showPage('welcome');
-            }, 100);
-        }
-        document.getElementById('loading-bar').style.width = loadingProgress + '%';
-    }, 400);
-
-    setupEventListeners();
+    navigateTo('welcome');
 });
 
 function navigateTo(pageId) {
-    showPage(pageId);
-
-    // Delay to allow new DOM to render
-    if (['login', 'register'].includes(pageId)) {
-        setTimeout(setupEventListeners, 100);
-    }
-}
-
-function showPage(pageId) {
-    const currentPageEl = document.getElementById(currentPage);
-    if (currentPageEl) {
-        currentPageEl.classList.remove('active-page', 'fade-in');
-    }
-
-    const newPageEl = document.getElementById(pageId);
-    if (newPageEl) {
-        newPageEl.classList.add('active-page');
-        setTimeout(() => {
-            newPageEl.classList.add('fade-in');
-        }, 10);
-        currentPage = pageId;
-    }
-
-    if (pageId === 'welcome') {
-        const loadingScreen = document.getElementById('loading');
-        if (loadingScreen) {
-            loadingScreen.classList.add('hidden');
-        }
-    }
-
-    window.scrollTo(0, 0);
+    const pageUrl = `pages/${pageId}.html`;
+    fetch(pageUrl)
+        .then(response => response.text())
+        .then(html => {
+            const mainContainer = document.querySelector('.max-w-md');
+            mainContainer.innerHTML = html;
+            currentPage = pageId;
+            setupEventListeners();
+        })
+        .catch(error => {
+            console.error('Error loading page:', error);
+        });
 }
 
 function setupEventListeners() {
@@ -86,7 +53,7 @@ function setupEventListeners() {
 
     if (loginBtn) {
         loginBtn.addEventListener('click', function () {
-            showPage('home');
+            navigateTo('home');
         });
     }
 
@@ -120,7 +87,7 @@ function setupEventListeners() {
 
     if (createBtn) {
         createBtn.addEventListener('click', function () {
-            showPage('home');
+            navigateTo('home');
         });
     }
 
@@ -140,7 +107,7 @@ function setupEventListeners() {
     }
 
     window.completeRegistration = function () {
-        showPage('home');
+        navigateTo('home');
     };
 
     // Service quantity controls
