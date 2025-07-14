@@ -1,0 +1,95 @@
+/* Dark Mode Styles */
+
+body.dark-mode {
+    --primary-color: #10b981; /* Emerald */
+    --secondary-color: #818cf8; /* Indigo */
+    --accent-color: #facc15; /* Amber */
+    --text-color: #d1d5db; /* Cool Gray */
+    --background-color: #1f2937; /* Cool Gray */
+}
+
+.dark-mode .card {
+    background-color: #374151; /* Cool Gray */
+    border-color: #4b5563; /* Cool Gray */
+}
+
+.dark-mode .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #059669; /* Darker Emerald */
+}
+
+.dark-mode .btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.dark-mode .btn-secondary:hover {
+    background-color: #6366f1; /* Darker Indigo */
+}
+
+.dark-mode input, .dark-mode select, .dark-mode textarea {
+    background-color: #4b5563; /* Cool Gray */
+    border-color: #6b7280; /* Cool Gray */
+    color: white;
+}
+
+.dark-mode input:focus, .dark-mode select:focus, .dark-mode textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.dark-mode .text-gray-500 {
+    color: #9ca3af; /* Cool Gray */
+}
+
+.dark-mode .text-gray-600 {
+    color: #d1d5db; /* Cool Gray */
+}
+
+.dark-mode .text-gray-700 {
+    color: #e5e7eb; /* Cool Gray */
+}
+
+.dark-mode .text-gray-800 {
+    color: #f3f4f6; /* Cool Gray */
+}
+
+.dark-mode .text-gray-900 {
+    color: white;
+}
+
+.dark-mode .bg-gray-50 {
+    background-color: #374151; /* Cool Gray */
+}
+
+.dark-mode .bg-gray-100 {
+    background-color: #4b5563; /* Cool Gray */
+}
+
+.dark-mode .bg-gray-200 {
+    background-color: #6b7280; /* Cool Gray */
+}
+
+.dark-mode .border-gray-200 {
+    border-color: #4b5563; /* Cool Gray */
+}
+
+.dark-mode .border-gray-300 {
+    border-color: #6b7280; /* Cool Gray */
+}
+
+.dark-mode .hover\:bg-gray-50:hover {
+    background-color: #4b5563; /* Cool Gray */
+}
+
+.dark-mode .hover\:bg-gray-100:hover {
+    background-color: #6b7280; /* Cool Gray */
+}
+
+.dark-mode .hover\:bg-gray-200:hover {
+    background-color: #9ca3af; /* Cool Gray */
+}
