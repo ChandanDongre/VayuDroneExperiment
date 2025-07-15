@@ -12,6 +12,12 @@ function navigateTo(pageId) {
         currentPage = pageId;
     }
 }
+if (pageId === 'welcome') {
+  const loadingScreen = document.getElementById('loading');
+  if (loadingScreen) {
+    loadingScreen.classList.add('hidden'); // 👈 hides loading screen completely
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     navigateTo('welcome');
